@@ -149,3 +149,19 @@ public class MasterDataInputProgram {
         }
     }
 }
+
+class exception01 extends Exception {
+    public exception01(String message) {
+        super(message);
+    }
+}
+
+public class MyClass {
+    public static void main(String[] args) {
+        try {
+            throw new exception01("Error. Please contact administrator");
+        } catch (exception01 e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
