@@ -1,0 +1,151 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+public class MasterDataInputProgram {
+    public static void main(String[] args) {
+        String masterDocument = createMasterDocument();
+        saveTochecklistDB01("MasterDocument", masterDocument);
+        String questions = createQuestions();
+        saveTochecklistDB01("Questions", questions);
+    }
+
+    private static String createMasterDocument() {
+        String masterDocument = "Sample Master Document";
+        return masterDocument;
+    }
+
+    private static String createQuestions() {
+        String questions = "Sample Question 1, Sample Question 2, Sample Question 3";
+        return questions;
+    }
+
+    private static void saveTochecklistDB01(String tableName, String data) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/yourDB", "username", "password");
+            String query = "INSERT INTO " + tableName + " (data) VALUES (?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, data);
+            preparedStatement.executeUpdate();
+            System.out.println("Data saved to " + tableName + " successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ChecklistSystem {
+    public static void main(String[] args) {
+        List<String> noAnswers = importNoAnswersFromchecklistDB01();
+        displayNoAnswers(noAnswers);
+        List<String> issueDocuments = classifyAsIssueDocument(noAnswers);
+        displayIssueDocuments(issueDocuments);
+        List<String> documentAnswers = getDocumentAnswers(issueDocuments);
+        saveDocumentAnswers(documentAnswers);
+    }
+
+    private static List<String> importNoAnswersFromchecklistDB01() {
+        return new ArrayList<>();
+    }
+
+    private static void displayNoAnswers(List<String> noAnswers) {
+        for (String answer : noAnswers) {
+            System.out.println(answer);
+        }
+    }
+
+    private static List<String> classifyAsIssueDocument(List<String> noAnswers) {
+        List<String> issueDocuments = new ArrayList<>();
+        for (String answer : noAnswers) {
+            if (answer.equals("No")) {
+                issueDocuments.add("Issue Document: " + answer);
+            }
+        }
+        return issueDocuments;
+    }
+
+    private static void displayIssueDocuments(List<String> issueDocuments) {
+        for (String document : issueDocuments) {
+            System.out.println(document);
+            System.out.println("Answer options: Resolve, Open");
+        }
+    }
+
+    private static List<String> getDocumentAnswers(List<String> issueDocuments) {
+        List<String> documentAnswers = new ArrayList<>();
+    }
+
+    private static void saveDocumentAnswers(List<String> documentAnswers) {
+    }
+}
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class ChecklistDataAnalyzer {
+    public static void main(String[] args) {
+        int checklistQuestionCount = getChecklistQuestionCount();
+        int checklistAnswerCount = getChecklistAnswerCount();
+        int issueDocumentCount = getIssueDocumentCount();
+        int issueDocumentAnswerCount = getIssueDocumentAnswerCount();
+
+        System.out.println("Checklist Question Count: " + checklistQuestionCount);
+        System.out.println("Checklist Answer Count: " + checklistAnswerCount);
+        System.out.println("Issue Document Count: " + issueDocumentCount);
+        System.out.println("Issue Document Answer Count: " + issueDocumentAnswerCount);
+    }
+
+    private static Connection connectToDatabase() {
+    }
+
+    private static int getChecklistQuestionCount() {
+    }
+
+    private static int getChecklistAnswerCount() {
+    }
+
+    private static int getIssueDocumentCount() {
+    }
+
+    private static int getIssueDocumentAnswerCount() {
+    }
+}
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class MasterDataInputProgram {
+    public static void main(String[] args) {
+        List<String> masterData = inputMasterData();
+        displayMasterData(masterData);
+    }
+
+    private static List<String> inputMasterData() {
+        Scanner scanner = new Scanner(System.in);
+        List<String> masterData = new ArrayList<>();
+        System.out.println("Enter master data (type 'END' to exit):");
+        String input;
+        while (!(input = scanner.nextLine()).equals("END")) {
+            masterData.add(input);
+        }
+        return masterData;
+    }
+
+    private static void displayMasterData(List<String> masterData) {
+        System.out.println("Master data:");
+        for (String data : masterData) {
+            System.out.println(data);
+        }
+    }
+}
