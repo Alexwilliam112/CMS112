@@ -202,6 +202,15 @@ class TitleBar extends JPanel {
         titleText.setFont(new Font("Cambria", Font.BOLD, 20));
         titleText.setHorizontalAlignment(JLabel.CENTER);
         this.add(titleText);
+
+        JLabel subTitle = new JLabel("Version 1.0");
+        subTitle.setPreferredSize(new Dimension(200, 30));
+        subTitle.setFont(new Font("Cambria", Font.ITALIC, 15));
+        subTitle.setHorizontalAlignment(JLabel.CENTER);
+        
+        Box box = Box.createHorizontalBox();
+        box.add(subTitle);
+        this.add(box);    
     }
 }
 
